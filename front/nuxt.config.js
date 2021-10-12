@@ -34,7 +34,49 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/style-resources'],
+  modules: ['@nuxtjs/style-resources', '@nuxtjs/auth-next', '@nuxtjs/axios'],
+
+  // Axios module configuration: https://go.nuxtjs.dev/config-axios
+  axios: {
+    baseURL: 'path/to/api_base/', // apiのベースURLを追加
+  },
+  auth: {
+    redirect: {
+      login: '/login',
+      logout: '/login',
+      callback: false,
+      home: '/home',
+    },
+    strategies: {
+      User: {
+        provider: 'laravel/jwt',
+        url: '/Users',
+        token: {
+          property: 'access_token',
+          maxAge: 60 * 60,
+        },
+        refreshToken: {
+          property: 'access_token',
+          maxAge: 20160 * 60,
+        },
+
+        endpoints: {
+          login: {
+            url: '/login',
+            method: 'post',
+            propertyName: 'access_token',
+          },
+          logout: { url: '/logout', method: 'post' },
+          refresh: {
+            url: '/refresh',
+            method: 'post',
+            propertyName: 'access_token',
+          },
+          user: { url: '/me', method: 'get', propertyName: false },
+        },
+      },
+    },
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
