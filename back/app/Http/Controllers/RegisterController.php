@@ -1,17 +1,14 @@
 <?php
-namespace App\Http\Controllers;
+
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Auth\Events\Registered;
-class AuthController extends Controller
-{
-    public function index()
-    {
-        return 'テストでーす';
-    }
 
+class RegisterController extends Controller
+{
     public function register(Request $request): JsonResponse
     {
         $validate = $this->validator($request->all());
