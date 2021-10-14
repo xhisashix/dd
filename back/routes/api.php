@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -16,12 +15,16 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-
-Route::group(['middleware' => 'api'], function () {
-    Route::get('test', [AuthController::class, 'index']);
-    Route::get('register', [AuthController::class, 'register']);
-    // 認証が必要ないメソッド
-    Route::group(['middleware' => ['jwt.auth']], function () {
-        // 認証が必要なメソッド
-    });
-});
+Route::group(
+    [
+        'middleware' => 'api',
+        'prefix' => 'auth',
+    ],
+    function ($router) {
+        Route::get('/login', [AuthController::class, 'login']);
+        Route::post('/register', [AuthController::class, 'register']);
+        Route::post('/logout', [AuthController::class, 'logout']);
+        Route::post('/refresh', [AuthController::class, 'refresh']);
+        Route::get('/user-profile', [AuthController::class, 'userProfile']);
+    }
+);
