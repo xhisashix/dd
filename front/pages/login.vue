@@ -3,6 +3,7 @@ div
   .login
     h1 ログインユーザー
     .login-container
+      el-alert(v-if="error" type="error") IDまたはパスワードが間違えています。
       el-form(:model="form")
         el-form-item(label="メールアドレス")
           el-input(v-model="form.email")
@@ -23,6 +24,7 @@ export default {
         email: '',
         password: '',
       },
+      error: false
     }
   },
   methods: {
@@ -34,6 +36,7 @@ export default {
         })
       } catch (error) {
         console.log(error)
+        this.error = true
       }
     },
   },
