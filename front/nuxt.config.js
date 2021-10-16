@@ -22,7 +22,7 @@ export default {
   },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ['~/plugins/element.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -34,48 +34,45 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/style-resources', '@nuxtjs/auth-next', '@nuxtjs/axios'],
+  modules: ['@nuxtjs/style-resources', '@nuxtjs/axios', '@nuxtjs/auth'],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'path/to/api_base/', // apiのベースURLを追加
+    baseURL: 'http://localhost:8888/api/auth', // apiのベースURLを追加
   },
   auth: {
     redirect: {
-      login: '/login',
-      logout: '/login',
-      callback: false,
-      home: '/home',
+      login: '/login', // 未ログイン時に認証ルートへアクセスした際のリダイレクトURL
+      logout: '/login', // ログアウト時のリダイレクトURL
+      callback: false, // Oauth認証等で必要となる コールバックルート
+      home: '/', // ログイン後のリダイレクトURL
     },
+    localStorage: false, // JWTトークンをローカルストレージに入れておくのは危ない
     strategies: {
-      User: {
-        provider: 'laravel/jwt',
-        url: '/Users',
-        token: {
-          property: 'access_token',
-          maxAge: 60 * 60,
-        },
-        refreshToken: {
-          property: 'access_token',
-          maxAge: 20160 * 60,
-        },
-
+      local: {
+        tokenType:'bearer',
         endpoints: {
+          token: {
+            property: 'access_token',
+          },
           login: {
-            url: '/login',
+            url: 'http://localhost:8888/api/auth/login',
             method: 'post',
             propertyName: 'access_token',
           },
-          logout: { url: '/logout', method: 'post' },
-          refresh: {
-            url: '/refresh',
-            method: 'post',
-            propertyName: 'access_token',
+          user: {
+            url: 'http://localhost:8888/api/auth/me',
+            method: 'get',
+            propertyName: false,
           },
-          user: { url: '/me', method: 'get', propertyName: false },
+          logout: false,
         },
       },
     },
+  },
+
+  router: {
+    middleware: ['auth']
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
