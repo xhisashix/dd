@@ -10,11 +10,6 @@ use Validator;
 
 class AuthController extends Controller
 {
-    public function index()
-    {
-        return 'テストでーす';
-    }
-
     /**
      * Create a new AuthController instance.
      *
