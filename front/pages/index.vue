@@ -2,7 +2,7 @@
   .container
     p 名前：{{ user.name }}
     p 年齢：{{ user.email }}
-    el-button.button(type="primary" @click="logout") ログアウト
+    el-button.button(type="info" @click="logout") ログアウト
 </template>
 
 <script>

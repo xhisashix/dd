@@ -3,23 +3,23 @@
   header
     .logo
     .btn-area
-      button(type='submit') {{ !logined ? 'ログイン' : 'ログアウト' }}
-      button(type='submit') 新規登録
+      a(href="/login")
+        el-button(type='primary' v-if="!this.$auth.loggedIn") ログイン
+      el-button(type='info' v-if="this.$auth.loggedIn" @click='logout') ログアウト
+      a(href="/register")
+      el-button(type='default') 新規登録
 </template>
+
 <script>
 export default {
-    middleware({ store }) {
-    if (store.$auth.loggedIn) {
-      this.logined = true
+    methods: {
+        logout() {
+            this.$auth.logout();
+        },
     }
-  },
-  data() {
-    return {
-      logined: false,
-    }
-  },
 }
 </script>
+
 <style lang="stylus">
 .header
   border-bottom 2px solid #eee
@@ -34,4 +34,7 @@ export default {
       margin-left auto
       display flex
       align-items center
+      margin-right: 20px
+      a
+        margin 0 5px
 </style>
