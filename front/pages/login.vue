@@ -1,8 +1,8 @@
 <template lang="pug">
 div
   .login
-    h1 ログインユーザー
     .login-container
+      h1 ログインユーザー
       el-alert(v-if="error" type="error") IDまたはパスワードが間違えています。
       el-form(:model="form")
         el-form-item(label="メールアドレス")

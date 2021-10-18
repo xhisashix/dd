@@ -3,11 +3,22 @@
   header
     .logo
     .btn-area
-      button(type='submit') ログイン
+      button(type='submit') {{ !logined ? 'ログイン' : 'ログアウト' }}
       button(type='submit') 新規登録
 </template>
 <script>
-export default {}
+export default {
+    middleware({ store }) {
+    if (store.$auth.loggedIn) {
+      this.logined = true
+    }
+  },
+  data() {
+    return {
+      logined: false,
+    }
+  },
+}
 </script>
 <style lang="stylus">
 .header
