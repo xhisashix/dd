@@ -7,7 +7,7 @@
         el-button(type='primary' v-if="!this.$auth.loggedIn") ログイン
       el-button(type='info' v-if="this.$auth.loggedIn" @click='logout') ログアウト
       a(href="/register")
-      el-button(type='default') 新規登録
+        el-button(type='default') 新規登録
 </template>
 
 <script>
