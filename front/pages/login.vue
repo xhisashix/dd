@@ -29,7 +29,6 @@ export default {
   },
   methods: {
     async login() {
-      console.log('通化')
       try {
         await this.$auth.loginWith('local', {
           data: this.form,

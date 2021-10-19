@@ -34,6 +34,7 @@ export default {
             data: this.form,
           })
         })
+        setTimeout(this.$router.replace({ path: '/mypage' }), 3000);
     },
   },
 }

@@ -1,10 +1,18 @@
 <template lang="pug">
 .layout
   Header
-  Nuxt
+  .main-content
+    Nuxt
   Footer
 </template>
+
 <script>
 export default {}
 </script>
-<style lang="stylus"></style>
+
+<style lang="stylus">
+.main-content
+  width: 80%
+  margin 0 auto
+  margin-top: 20px
+</style>
