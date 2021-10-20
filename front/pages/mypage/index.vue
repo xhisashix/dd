@@ -1,8 +1,33 @@
 <template lang="pug">
 .my-page
-  h1 マイページ
+  Bbh1(h1='マイページ')
+  .content
+    table
+      tbody
+        tr
+          th 名前
+          td {{ user.name }}
+        tr
+          th メールアドレス
+          td {{ user.email }}
 </template>
 <script>
-export default {}
+export default {
+  computed: {
+    user() {
+      return this.$auth.user;
+    }
+  },
+}
 </script>
-<style lang="stylus"></style>
+<style lang="stylus">
+.my-page
+  .content
+    table
+      tbody
+        tr
+          border-bottom: 1px solid #eee
+          th, td
+            width 200px
+            padding 5px 10px
+</style>
