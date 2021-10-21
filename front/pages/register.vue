@@ -1,6 +1,12 @@
 <template lang="pug">
 .register
   .container
+    .error(v-if="response")
+      div(v-if="response.data.status == 'error'")
+        ul
+          //- li(v-for="massage in response.data.message" :key="massage.id")
+          li
+            p {{ response.data.messages.email }}
     el-form(:model="form")
       el-form-item(label="名前")
         el-input(v-model="form.name")
@@ -23,18 +29,27 @@ export default {
         password: '',
         password_confirmation: '',
       },
+      response: '',
     }
   },
   methods: {
-    register() {
-      this.$axios
-        .post('http://localhost:8888/api/auth/register', this.form)
-        .then((response) => {
-          this.$auth.loginWith('local', {
-            data: this.form,
+    async register() {
+      try {
+        this.$axios
+          .post('http://localhost:8888/api/auth/register', this.form)
+          .then((response) => {
+            console.log(response)
+            this.response = response
+            if (this.response.data.status === 'error') {
+              this.$router.push('/register')
+            }
+            // this.$auth.loginWith('local', {
+            //   data: this.form,
+            // })
           })
-        })
-        setTimeout(this.$router.replace({ path: '/mypage' }), 3000);
+      } catch (error) {
+        console.log(error)
+      }
     },
   },
 }
