@@ -1,12 +1,6 @@
 <template lang="pug">
 .register
   .container
-    .error(v-if="response")
-      div(v-if="response.data.status == 'error'")
-        ul
-          //- li(v-for="massage in response.data.message" :key="massage.id")
-          li
-            p {{ response.data.messages.email }}
     el-form(:model="form")
       el-form-item(label="名前")
         el-input(v-model="form.name")
@@ -29,18 +23,19 @@ export default {
         password: '',
         password_confirmation: '',
       },
-      response: '',
+      response: ''
     }
   },
   methods: {
     async register() {
       this.$axios
-        .post('http://localhost:8888/api/v1/register', this.form)
+        .post('http://localhost:8888/api/auth/register', this.form)
         .then((response) => {
           console.log(response)
+          this.response = response
         })
         .catch((error) => {
-          console.log(error)
+          console.log(error.response)
         })
     },
   },
