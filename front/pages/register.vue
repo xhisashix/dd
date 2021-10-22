@@ -34,22 +34,14 @@ export default {
   },
   methods: {
     async register() {
-      try {
-        this.$axios
-          .post('http://localhost:8888/api/auth/register', this.form)
-          .then((response) => {
-            console.log(response)
-            this.response = response
-            if (this.response.data.status === 'error') {
-              this.$router.push('/register')
-            }
-            // this.$auth.loginWith('local', {
-            //   data: this.form,
-            // })
-          })
-      } catch (error) {
-        console.log(error)
-      }
+      this.$axios
+        .post('http://localhost:8888/api/v1/register', this.form)
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     },
   },
 }
