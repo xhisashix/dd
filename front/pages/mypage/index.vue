@@ -10,6 +10,9 @@
         tr
           th メールアドレス
           td {{ user.email }}
+        tr
+          th 登録日
+          td {{ user.created_at }}
 </template>
 <script>
 export default {
@@ -34,5 +37,5 @@ export default {
           border-bottom: 1px solid #eee
           th, td
             width 200px
-            padding 5px 10px
+            padding 10px 10px
 </style>
