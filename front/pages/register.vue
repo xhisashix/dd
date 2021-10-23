@@ -1,6 +1,11 @@
 <template lang="pug">
 .register
   .container
+    .error-message(v-if="errors !==''")
+      el-alert(title="エラーメッセージ" type="error")
+        .errors(v-for="error in errors")
+          .error(v-for="errorData in error")
+            p {{ errorData}}
     el-form(:model="form")
       el-form-item(label="名前")
         el-input(v-model="form.name")
@@ -23,7 +28,8 @@ export default {
         password: '',
         password_confirmation: '',
       },
-      response: ''
+      response: '',
+      errors: '',
     }
   },
   methods: {
@@ -31,11 +37,10 @@ export default {
       this.$axios
         .post('http://localhost:8888/api/auth/register', this.form)
         .then((response) => {
-          console.log(response)
           this.response = response
         })
         .catch((error) => {
-          console.log(error.response)
+          this.errors = error.response.data
         })
     },
   },
@@ -47,4 +52,9 @@ export default {
   .container
     width 50%
     margin 0 auto
+    .error-message
+      .errors
+        .error
+          p
+            margin-top 5px
 </style>
