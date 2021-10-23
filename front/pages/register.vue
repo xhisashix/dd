@@ -1,5 +1,6 @@
 <template lang="pug">
 .register
+  Bbh1(h1='新規会員登録')
   .container
     .error-message(v-if="errors !==''")
       el-alert(title="エラーメッセージ" type="error")

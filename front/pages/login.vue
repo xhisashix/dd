@@ -2,7 +2,7 @@
 div
   .login
     .login-container
-      h1 ログインユーザー
+      Bbh1(h1='ログイン')
       el-alert(v-if="error" type="error") IDまたはパスワードが間違えています。
       el-form(:model="form")
         el-form-item(label="メールアドレス")
