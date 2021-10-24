@@ -36,7 +36,12 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/moment'
   ],
+
+  moment: {
+    locales: ['ja']
+  },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: ['@nuxtjs/style-resources', '@nuxtjs/axios', '@nuxtjs/auth'],
