@@ -39,6 +39,9 @@ export default {
         .post('http://localhost:8888/api/auth/register', this.form)
         .then((response) => {
           this.response = response
+          this.$auth.loginWith('local', {
+            data: this.form,
+          })
         })
         .catch((error) => {
           this.errors = error.response.data
