@@ -18,4 +18,5 @@ export default {
   line-height: rem(28px)
   padding-left 10px
   font-weight bold
+  margin 20px 0
 </style>
