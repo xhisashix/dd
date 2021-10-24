@@ -3,7 +3,8 @@
   Bbh1(h1='マイページ')
   .content
     .btn-area
-      el-button(type="primary" icon="el-icon-edit") 編集
+      nuxt-link(:to="'/mypage/edit/'+user.id")
+        el-button(type="primary" icon="el-icon-edit") 編集
     table
       tbody
         tr
@@ -27,6 +28,11 @@ export default {
   middleware({ store, redirect }) {
     if (!store.$auth.loggedIn) {
       redirect('/login')
+    }
+  },
+  data() {
+    return {
+      path: '/mypage/edit/',
     }
   },
   computed: {
