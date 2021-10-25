@@ -21,27 +21,29 @@
           td {{ user.created_at }}
         tr
           th 更新日
-          td {{ user.updated_at }}
+          td {{ user.updated_at | format-date}}
 </template>
+
 <script>
 export default {
-  middleware({ store, redirect }) {
-    if (!store.$auth.loggedIn) {
-      redirect('/login')
-    }
-  },
-  data() {
-    return {
-      path: '/mypage/edit/',
-    }
-  },
-  computed: {
-    user() {
-      return this.$auth.user
+    middleware({ store, redirect }) {
+        if (!store.$auth.loggedIn) {
+            redirect('/login')
+        }
     },
-  },
+    data() {
+        return {
+            path: '/mypage/edit/',
+        }
+    },
+    computed: {
+        user() {
+            return this.$auth.user
+        },
+    },
 }
 </script>
+
 <style lang="stylus">
 .my-page
   .content

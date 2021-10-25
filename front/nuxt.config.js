@@ -22,25 +22,22 @@ export default {
   },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~/plugins/element.js'],
+  plugins: ['~/plugins/element.js', '~/plugins/format-date.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: {
-    dirs: [
-      '~/components',
-      '~/components/ui/'
-    ]
+    dirs: ['~/components', '~/components/ui/'],
   },
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
-    '@nuxtjs/moment'
+    '@nuxtjs/moment',
   ],
 
   moment: {
-    locales: ['ja']
+    locales: ['ja'],
   },
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -60,7 +57,7 @@ export default {
     localStorage: false, // JWTトークンをローカルストレージに入れておくのは危ない
     strategies: {
       local: {
-        tokenType:'bearer',
+        tokenType: 'bearer',
         endpoints: {
           token: {
             property: 'access_token',
