@@ -18,7 +18,7 @@
           td {{ user.email }}
         tr
           th 登録日
-          td {{ user.created_at }}
+          td {{ user.created_at | format-data }}
         tr
           th 更新日
           td {{ user.updated_at | format-date}}
