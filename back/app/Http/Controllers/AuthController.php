@@ -1,9 +1,11 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 
@@ -55,7 +57,7 @@ class AuthController extends Controller
             'password' => 'required|string|confirmed|min:6',
         ]);
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return response()->json($validator->errors(), 401);
         }
 
@@ -120,5 +122,38 @@ class AuthController extends Controller
             'token_type' => 'bearer',
             'expires_in' => auth('api')->factory()->getTTL() * 60,
         ]);
+    }
+
+    public function profileEdit(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|between:2,100',
+            'email' => 'required|string|email|max:100|unique:users',
+            'password' => 'required|string|confirmed|min:6',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        User::where('id', $request['id'])->update([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => $request['password'],
+            'updated_at' => Carbon::now()
+        ]);
+
+        // 更新後のユーザーデータを取得
+        $editUser = User::where('id', $request['id'])->first();
+
+
+        return response()->json(
+            [
+                'message' => '更新に成功しました。',
+                'user' => $editUser,
+            ],
+            200
+        );
     }
 }
