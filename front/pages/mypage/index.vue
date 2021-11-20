@@ -18,10 +18,10 @@
           td {{ user.email }}
         tr
           th 登録日
-          td {{ user.created_at | format-data }}
+          td {{ user.created_at | format-date }}
         tr
           th 更新日
-          td {{ user.updated_at | format-date}}
+          td {{ user.updated_at | format-date }}
 </template>
 
 <script>
