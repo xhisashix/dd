@@ -45,8 +45,12 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'http://localhost:8888/api/auth', // apiのベースURLを追加
+    //baseURL: ENV.API_BASE_URL,
+    //browserBaseURL: 'http://localhost:3000/',
+    prefix: process.env.API_BASE_URL,
+    proxy: true
   },
+
   auth: {
     redirect: {
       login: '/login', // 未ログイン時に認証ルートへアクセスした際のリダイレクトURL

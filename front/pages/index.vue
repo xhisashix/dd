@@ -1,8 +1,55 @@
 <template lang="pug">
   .container
-    h1 TOPページ
+    h1 記事一覧
+    ul.content-list
+      li(v-for="item in response" :key="item.id")
+        span {{ item.id }}
+        span.tag {{ item.tags }}
+        h2 {{item.title }}
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      response: '',
+    }
+  },
+  mounted() {
+    this.getPostsData()
+  },
+  methods: {
+    getPostsData() {
+      this.$axios
+        .get(this.$axios.defaults.baseURL + 'posts')
+        .then((response) => {
+          this.response = response.data
+        })
+    }
+  },
+}
 </script>
+
+<style lang="stylus">
+.container
+  h1
+    font-size rem(24px)
+    line-height: rem(32px)
+    padding-left 10px
+    border-left: 3px solid #409EFF
+  .content-list
+    margin-top: 30px
+    li
+      display: flex
+      align-items: center
+      span
+        margin-left: 15px
+        &:first-child
+          margin-left: 0
+      .tag
+        padding 5px 8px
+        background: #409EFF
+        color: color-white
+        border-radius: 5px
+        margin-right: 10px
+</style>
