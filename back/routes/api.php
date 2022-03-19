@@ -32,3 +32,4 @@ Route::group(
 );
 
 Route::get('/posts', [PostsController::class, 'getPostData'])->name('posts');
+Route::get('/posts/{id}', [PostsController::class, 'getPostData'])->name('posts');

@@ -93,5 +93,15 @@ class PostsController extends Controller
 
         return $posts;
     }
-}
 
+    /**
+     * postテーブルから指定したidのデータを取得
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getPostDataById($id) {
+        $posts = DB::table('posts')->where('id', $id)->get();
+
+        return $posts;
+    }
+}
