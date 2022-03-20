@@ -3,7 +3,6 @@
     h1 記事一覧
     ul.content-list
       li(v-for="item in response" :key="item.id")
-        span {{ item.id }}
         span.tag {{ item.tags }}
         h2 {{item.title }}
 </template>
@@ -42,6 +41,7 @@ export default {
     li
       display: flex
       align-items: center
+      margin-top 20px
       span
         margin-left: 15px
         &:first-child
