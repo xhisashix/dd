@@ -30,6 +30,14 @@ Route::group(
         Route::get('/me', [AuthController::class, 'me']);
     }
 );
-
-Route::get('/posts', [PostsController::class, 'getPostData'])->name('posts');
-Route::get('/posts/{id}', [PostsController::class, 'getPostData'])->name('posts');
+Route::group(
+    [
+        'middleware' => 'api',
+        'prefix' => 'posts',
+    ],
+    function ($router) {
+        Route::get('/', [PostsController::class, 'getPostData'])->name('posts');
+        Route::get('/{id}', [PostsController::class, 'getPostDataById'])->name('post_id');
+        Route::post('/create', [PostsController::class, 'addPostData'])->name('posts_create');
+    }
+);

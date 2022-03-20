@@ -104,4 +104,21 @@ class PostsController extends Controller
 
         return $posts;
     }
+
+    /**
+     * postテーブルにデータを追加
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function addPostData(Request $request) {
+        $posts = new Posts;
+        $posts->user_id = $request->user_id;
+        $posts->title = $request->title;
+        $posts->content = $request->content;
+        $posts->status = $request->status;
+        $posts->tags = $request->tags;
+        $posts->save();
+
+        return $request;
+    }
 }
