@@ -121,4 +121,47 @@ class PostsController extends Controller
 
         return $request;
     }
+
+    /**
+     * postテーブルから指定したidのデータを削除
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function deletePostDataById(Request $request) {
+        $posts = DB::table('posts')->where('id', $request->id)->delete();
+
+        return response()->json(
+            [
+                'response_code' => '200',
+                'message' => '投稿を削除しました。',
+                'data' => $posts
+            ]
+        );
+    }
+
+    /**
+     * postテーブルから指定したidのデータを更新
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updatePostDataById(Request $request) {
+        $posts = DB::table('posts')->where('id', $request->id)->update(
+            [
+                'id' => $request->id,
+                'user_id' => $request->user_id,
+                'title' => $request->title,
+                'content' => $request->content,
+                'status' => $request->status,
+                'tags' => $request->tags
+            ]
+        );
+
+        return response()->json(
+            [
+                'response_code' => '200',
+                'message' => '投稿を更新しました。',
+                'data' => $posts
+            ]
+        );
+    }
 }
