@@ -88,7 +88,8 @@ class PostsController extends Controller
      * postテーブルからすべてのデータを取得
      * @return \Illuminate\Http\Response
      */
-    public function getPostData() {
+    public function getPostData()
+    {
         $posts = DB::table('posts')->get();
 
         return $posts;
@@ -99,7 +100,8 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function getPostDataById($id) {
+    public function getPostDataById($id)
+    {
         $posts = DB::table('posts')->where('id', $id)->get();
 
         return $posts;
@@ -110,8 +112,28 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function addPostData(Request $request) {
+    public function addPostData(Request $request)
+    {
         $posts = new Posts;
+
+        // ユーザーIDがからのときエラーを返す
+        if (empty($request->user_id)) {
+            $message = "ユーザーIDは必須項目です。";
+            return response()->json([
+                'response_code' => '402',
+                'message' => $message,
+            ]);
+        }
+
+        // タイトルがからのときエラーを返す
+        if(empty($request->title)) {
+            $message = "タイトルは必須項目です。";
+            return response()->json([
+                'response_code' => '402',
+                'message' => $message
+            ]);
+        }
+
         $posts->user_id = $request->user_id;
         $posts->title = $request->title;
         $posts->content = $request->content;
@@ -119,7 +141,13 @@ class PostsController extends Controller
         $posts->tags = $request->tags;
         $posts->save();
 
-        return $request;
+        return response()->json([
+            [
+                'response_code' => '200',
+                'message' => '記事を作成しました。',
+                'data' => $request
+            ]
+        ]);
     }
 
     /**
@@ -127,7 +155,8 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function deletePostDataById(Request $request) {
+    public function deletePostDataById(Request $request)
+    {
         $posts = DB::table('posts')->where('id', $request->id)->delete();
 
         return response()->json(
@@ -144,7 +173,8 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function updatePostDataById(Request $request) {
+    public function updatePostDataById(Request $request)
+    {
         $posts = DB::table('posts')->where('id', $request->id)->update(
             [
                 'id' => $request->id,
