@@ -38,6 +38,7 @@ Route::group(
     function ($router) {
         Route::get('/', [PostsController::class, 'getPostData'])->name('posts');
         Route::get('/{id}', [PostsController::class, 'getPostDataById'])->name('post_id');
+        Route::get('/published/{status}', [PostsController::class, 'getPostDataByStatus'])->name('posts_published');
         Route::post('/create', [PostsController::class, 'addPostData'])->name('posts_create');
         Route::post('/delete', [PostsController::class, 'deletePostDataById'])->name('posts_delete');
         Route::post('/edit', [PostsController::class, 'updatePostDataById'])->name('posts_edit');

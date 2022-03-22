@@ -95,6 +95,17 @@ class PostsController extends Controller
         return $posts;
     }
 
+
+    /**
+     * postテーブルからstatusが０のものだけを取得
+     * @return \Illuminate\Http\Response
+     */
+    public function getPostDataByStatus($status)
+    {
+        $posts = DB::table('posts')->where('status', $status)->get();
+        return $posts;
+    }
+
     /**
      * postテーブルから指定したidのデータを取得
      * @param  int  $id
@@ -126,7 +137,7 @@ class PostsController extends Controller
         }
 
         // タイトルがからのときエラーを返す
-        if(empty($request->title)) {
+        if (empty($request->title)) {
             $message = "タイトルは必須項目です。";
             return response()->json([
                 'response_code' => '402',
