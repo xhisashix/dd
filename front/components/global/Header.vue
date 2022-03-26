@@ -3,13 +3,15 @@
   header
     .logo
     .btn-area
-      a(href="/login")
-        el-button(type='primary' v-if="!this.$auth.loggedIn") ログイン
+      nuxt-link(to="/login" v-if="!this.$auth.loggedIn")
+        el-button(type='primary') ログイン
       el-button(type='info' v-if="this.$auth.loggedIn" @click='logout') ログアウト
-      a(href="/register")
-        el-button(type='default' v-if="!this.$auth.loggedIn") 新規登録
-      a(href="/mypage")
-        el-button(type='primary' v-if="this.$auth.loggedIn") マイページ
+      nuxt-link(to="/register" v-if="!this.$auth.loggedIn")
+        el-button(type='default') 新規登録
+      nuxt-link(to="/mypage" v-if="this.$auth.loggedIn")
+        el-button(type='primary') マイページ
+      nuxt-link(to="/mypage/posts/" v-if="this.$auth.loggedIn")
+        el-button 記事作成
 </template>
 
 <script>
