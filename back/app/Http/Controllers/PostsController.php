@@ -208,7 +208,8 @@ class PostsController extends Controller
 
     /**
      * ユーザーIDに紐づくデータを取得
-     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
     */
     public function getPostDataByUserId($user_id) {
         $posts = DB::table('posts')->where('user_id', $user_id)->get();

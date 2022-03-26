@@ -24,13 +24,22 @@
           td {{ user.updated_at | format-date }}
   .my-posts-area
     Bbh1(h1='記事一覧')
-    el-table(:data="response" style="width: 100%")
-      el-table-column(prop="title" label="タイトル" width="180")
-      el-table-column(prop="tags" label="カテゴリ" width="100")
-      el-table-column(prop="content" label="本文")
-      el-table-column(prop="updated_at" label="最終更新日" width="180")
-      el-table-column(prop="" label="" width="100")
-        el-button(type="primary" icon="el-icon-edit") 編集
+    table
+      tbody
+        tr
+          th タイトル
+          th カテゴリ
+          th 本文
+          th 最終更新日
+          th
+        tr(v-for="item in response" :key="item.id")
+          td(v-html="item.title")
+          td(v-html="item.tags")
+          td(v-html="item.content")
+          td(v-html="item.updated_at")
+          td
+            nuxt-link(:to="'/mypage/posts/edit/' + item.id")
+              el-button(type="primary" icon="el-icon-edit") 編集
 </template>
 
 <script>
@@ -87,4 +96,14 @@ export default {
       margin-top: 30px
   .my-posts-area
     margin-top 30px
+    table
+      width: 100%
+      tr
+        border: 1px solid #eee
+      th,td
+        min-width: 150px
+        border-left: 1px solid #eee
+        padding 10px
+        vertical-align: middle
+        text-align: center
 </style>
