@@ -1,33 +1,57 @@
 <template lang="pug">
 .posts-edit-page
-  table
-    tbody
-      tr
-        th タイトル
-        th カテゴリ
-        th 本文
-        th 最終更新日
-        th
-      tr(v-for="item in response" :key="item.id")
-        td(v-html="item.title")
-        td(v-html="item.tags")
-        td(v-html="item.content")
-        td(v-html="item.updated_at")
-        td
-          nuxt-link(:to="'/mypage/posts/edit/' + item.id")
-            el-button(type="primary" icon="el-icon-edit") 編集
+  el-form(:model="response")
+    el-input(type="hidden" v-model="response.content" name="content")
+    el-form-item(label="タイトル")
+      el-input(name="title" placeholder="タイトル" v-model="response.title")
+    el-form-item(label="本文")
+    .markdown-editor
+      client-only
+          mavon-editor(
+              :toolbars="markdownOption"
+              language="ja"
+              v-model="response.content"
+              @change="changeText"
+          )
+    el-form-item(label='')
+    el-form-item(label="カテゴリ")
+        el-input(placeholder="カテゴリを選択" v-model="response.tags")
+    el-form-item(label='公開ステータス')
+    el-radio-group(v-model="response.status")
+        el-radio(label="0" v-model="response.status") 公開
+        el-radio(label="1" v-model="response.status") 非公開
+    el-form-item(label="")
+    el-button(type="primary" icon="el-icon-upload el-icon-right" @click="onSubmit") 保存
 </template>
+
 <script>
 export default {
-middleware({ store, redirect }) {
+    middleware({ store, redirect }) {
         if (!store.$auth.loggedIn) {
             redirect('/login')
         }
     },
     data() {
         return {
-            path: '/mypage/edit/',
             response: "",
+            mdText: "",
+            markdownOption: {
+                bold: true,
+                italic: true,
+                header: true,
+                underline: true,
+                strikethrough: true,
+                mark: true,
+                quote: true,
+                ol: true,
+                ul: true,
+                link: true,
+                imagelink: true,
+                code: true,
+                table: true,
+                fullscreen: true,
+                htmlcode: true,
+            },
         }
     },
     computed: {
@@ -36,19 +60,24 @@ middleware({ store, redirect }) {
         },
     },
     mounted() {
-      this.getPostsData()
+        this.getPostsData()
     },
     methods: {
+        changeText(value, render) {
+            this.mdText = value;
+            this.response.content = render;
+        },
         getPostsData() {
             console.log(this.$route.params.edit)
             this.$axios
-                .get(this.$axios.defaults.baseURL + 'posts/'+ this.$route.params.edit)
+                .get(this.$axios.defaults.baseURL + 'posts/' + this.$route.params.edit)
                 .then((response) => {
-                    this.response = response.data
+                    this.response = response.data[0]
                 })
         },
     }
 }
 </script>
+
 <style lang="stylus">
 </style>
