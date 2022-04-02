@@ -68,7 +68,6 @@ export default {
             this.response.content = render;
         },
         getPostsData() {
-            console.log(this.$route.params.edit)
             this.$axios
                 .get(this.$axios.defaults.baseURL + 'posts/' + this.$route.params.edit)
                 .then((response) => {

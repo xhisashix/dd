@@ -124,36 +124,35 @@ class AuthController extends Controller
         ]);
     }
 
-    public function profileEdit(Request $request)
-    {
-
+    /**
+     * ユーザー情報の編集
+     * @param  object $request
+     */
+    public function profileEdit(Request $request) {
+        //validation
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|between:2,100',
-            'email' => 'required|string|email|max:100|unique:users',
+            'email' => 'required|string|email|max:100',
             'password' => 'required|string|confirmed|min:6',
         ]);
-
+        // validationのエラーがあれば、エラーを返す
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return response()->json($validator->errors(), 401);
         }
 
-        User::where('id', $request['id'])->update([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => $request['password'],
-            'updated_at' => Carbon::now()
-        ]);
+        // リクエストのIDをもとにユーザーを取得
+        $user = User::find($request->id);
 
-        // 更新後のユーザーデータを取得
-        $editUser = User::where('id', $request['id'])->first();
+        // ユーザーが存在しなければ、エラーを返す
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 401);
+        }
 
-
-        return response()->json(
-            [
-                'message' => '更新に成功しました。',
-                'user' => $editUser,
-            ],
-            200
-        );
+        // ユーザー情報を更新
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->save();
+        return response()->json(['message' => 'User successfully updated']);
     }
 }
