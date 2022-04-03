@@ -1,5 +1,8 @@
 <template lang="pug">
 .page-new-post
+    .error-section(v-if="errors")
+        .error
+            el-alert(:title="errors" type="error" show-icon v-if="errors")
     el-form(:model="postItem")
         el-input(type="hidden" v-model="postItem.content" name="content")
         el-input(type="hidden" v-model="postItem.user_id=user.id" name="user_id")
@@ -40,7 +43,7 @@ export default {
             model: "",
             response: "",
             mdText: "",
-            error: false,
+            errors: '',
             postItem: {
                 user_id: "",
                 title: "",
@@ -87,7 +90,7 @@ export default {
                     });
             } catch (error) {
                 console.log(error);
-                this.error = true;
+                this.error = error;
             }
         },
     },

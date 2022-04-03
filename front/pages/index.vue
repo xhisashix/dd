@@ -3,8 +3,9 @@
     h1 記事一覧
     ul.content-list
       li(v-for="item in response" :key="item.id")
-        span.tag {{ item.tags }}
-        h2 {{item.title }}
+        nuxt-link(:to="'/post/content/' + item.id")
+          span.tag {{ item.tags }}
+          h2 {{item.title }}
 </template>
 
 <script>
@@ -39,17 +40,18 @@ export default {
   .content-list
     margin-top: 30px
     li
-      display: flex
-      align-items: center
-      margin-top 20px
-      span
-        margin-left: 15px
-        &:first-child
-          margin-left: 0
-      .tag
-        padding 5px 8px
-        background: #409EFF
-        color: color-white
-        border-radius: 5px
-        margin-right: 10px
+      a
+        display: flex
+        align-items: center
+        margin-top 20px
+        span
+          margin-left: 15px
+          &:first-child
+            margin-left: 0
+        .tag
+          padding 5px 8px
+          background: #409EFF
+          color: color-white
+          border-radius: 5px
+          margin-right: 10px
 </style>
