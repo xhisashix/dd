@@ -3,6 +3,8 @@
   Bbh1(h1='会員情報編集画面')
   .error-section(v-if="errors")
     .error
+      el-alert(:title="errors.name[0]" type="error" show-icon v-if="errors.name")
+    .error
       el-alert(:title="errors.email[0]" type="error" show-icon v-if="errors.email")
     .error
       el-alert(:title="errors.password[0]" type="error" show-icon v-if="errors.password")
