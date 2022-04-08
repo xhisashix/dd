@@ -36,7 +36,7 @@ export default {
   methods: {
     async register() {
       this.$axios
-        .post('http://localhost:8888/api/auth/register', this.form)
+        .post('http://127.0.0.1:8000/api/auth/register', this.form)
         .then((response) => {
           this.response = response
           this.$auth.loginWith('local', {

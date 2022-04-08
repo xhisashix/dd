@@ -55,6 +55,13 @@ export default {
     proxy: true
   },
 
+  proxy: {
+    '/api/': {
+      target: 'http://127.0.0.1:8000',
+      pathRewrite: {'^/api/': '/'}
+    },
+  },
+
   auth: {
     redirect: {
       login: '/login', // 未ログイン時に認証ルートへアクセスした際のリダイレクトURL
@@ -71,12 +78,12 @@ export default {
             property: 'access_token',
           },
           login: {
-            url: 'http://localhost:8888/api/auth/login',
+            url: 'http://127.0.0.1:8000/api/auth/login',
             method: 'post',
             propertyName: 'access_token',
           },
           user: {
-            url: 'http://localhost:8888/api/auth/me',
+            url: 'http://127.0.0.1:8000/api/auth/me',
             method: 'get',
             propertyName: false,
           },
