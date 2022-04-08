@@ -14,8 +14,8 @@ export default {
 <style lang="stylus">
 .h1
   border-left: 3px solid #409EFF
-  font-size rem(20px)
-  line-height: rem(28px)
+  font-size rem(32px)
+  line-height: rem(48px)
   padding-left 10px
   font-weight bold
   margin 20px 0

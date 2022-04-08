@@ -34,13 +34,13 @@ export default {
     h1
       font-size rem(32px)
       line-height rem(42px)
-      margin-top 10px
-      margin-bottom 15px
+      margin-top 30px
+      margin-bottom 30px
       font-weight bold
     h2
       font-size rem(28px)
       line-height rem(36px)
-      margin-top 10px
+      margin 30px 0
       font-weight bold
     h3
       font-size rem(24px)
