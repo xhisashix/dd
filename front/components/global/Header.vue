@@ -2,6 +2,8 @@
 .header
   header
     .logo
+      nuxt-link(to='/')
+        el-button(type='default') TOP
     .btn-area
       nuxt-link(to="/login" v-if="!this.$auth.loggedIn")
         el-button(type='primary') ログイン
@@ -27,6 +29,8 @@ export default {
 <style lang="stylus">
 .header
   border-bottom 2px solid #eee
+  padding 10px 20px
+  box-sizing: border-box
   header
     min-height 50px
     display flex
