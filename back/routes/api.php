@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,5 +44,19 @@ Route::group(
         Route::post('/create', [PostsController::class, 'addPostData'])->name('posts_create');
         Route::post('/delete', [PostsController::class, 'deletePostDataById'])->name('posts_delete');
         Route::post('/edit', [PostsController::class, 'updatePostDataById'])->name('posts_edit');
+    }
+);
+Route::group(
+    [
+        'middleware' => 'api',
+        'prefix' => 'categories',
+    ],
+    function ($router) {
+        Route::get('/', [CategoryController::class, 'getCategoryData'])->name('categories');
+        Route::get('/{id}', [CategoryController::class, 'getCategoryDataById'])->name('category_id');
+        Route::get('/user_id/{user_id}', [CategoryController::class, 'getCategoryDataByUserId'])->name('categories_user_id');
+        Route::post('/create', [CategoryController::class, 'addCategoryData'])->name('categories_create');
+        Route::post('/delete', [CategoryController::class, 'deleteCategoryDataById'])->name('categories_delete');
+        Route::post('/edit', [CategoryController::class, 'updateCategoryDataById'])->name('categories_edit');
     }
 );
