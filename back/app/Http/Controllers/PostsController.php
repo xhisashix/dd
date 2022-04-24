@@ -90,7 +90,7 @@ class PostsController extends Controller
      */
     public function getPostData()
     {
-        $posts = DB::table('posts')->get();
+        $posts = DB::table('posts')->leftJoin('categories', 'posts.tag_id', '=', 'categories.id')->get();
 
         return $posts;
     }
@@ -102,7 +102,7 @@ class PostsController extends Controller
      */
     public function getPostDataByStatus($status)
     {
-        $posts = DB::table('posts')->where('status', $status)->get();
+        $posts = DB::table('posts')->where('status', $status)->leftJoin('categories', 'posts.tag_id', '=', 'categories.id')->get();
         return $posts;
     }
 

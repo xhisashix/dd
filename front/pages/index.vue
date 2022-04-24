@@ -4,7 +4,7 @@
     ul.content-list
       li(v-for="item in response" :key="item.id")
         nuxt-link(:to="'/post/content/' + item.id")
-          span.tag {{ item.tags }}
+          span.tag(v-if="item.name") {{ item.name }}
           h2 {{item.title }}
 </template>
 
