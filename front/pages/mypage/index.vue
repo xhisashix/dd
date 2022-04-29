@@ -22,28 +22,11 @@
         tr
           th 更新日
           td {{ user.updated_at | format-date }}
-  .my-posts-area
-    Bbh1(h1='記事一覧')
-    table
-      tbody
-        tr
-          th タイトル
-          th カテゴリ
-          th 本文
-          th 最終更新日
-          th
-        tr(v-for="item in response" :key="item.id")
-          td(v-html="item.title")
-          td(v-html="item.tags")
-          td(v-html="item.content")
-          td(v-html="item.updated_at")
-          td
-            nuxt-link(:to="'/mypage/posts/edit/' + item.id")
-              el-button(type="primary" icon="el-icon-edit") 編集
 </template>
 
 <script>
 export default {
+    layout: 'mypage',
     middleware({ store, redirect }) {
         if (!store.$auth.loggedIn) {
             redirect('/login')
