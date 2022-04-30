@@ -55,6 +55,18 @@ class CategoryController extends Controller
             ]
         ]);
     }
+
+    /**
+     * 指定したIDのデータを取得
+     */
+    public static function getCategory($id){
+
+        $category = new Category;
+        $get_category = $category->where('id', $id)->first();
+
+        return $get_category;
+    }
+
     /**
      * Store a newly created resource in storage.
      *

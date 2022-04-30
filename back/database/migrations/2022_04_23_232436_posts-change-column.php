@@ -14,8 +14,8 @@ class PostsChangeColumn extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn('tags');
-            $table->integer('tag_id')->comment('タグID');
+            $table->dropColumn('tag_id');
+            $table->integer('categories_id')->comment('カテゴリID');
         });
     }
 

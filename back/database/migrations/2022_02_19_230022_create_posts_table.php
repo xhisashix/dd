@@ -20,7 +20,7 @@ class CreatePostsTable extends Migration
             $table->string('title')->comment("タイトル");
             $table->string("content")->comment("本文");
             $table->integer("status")->comment("投稿ステータス");
-            $table->string("tags")->comment("タグ");
+            $table->string("tag_id")->comment("タグ");
         });
     }
 

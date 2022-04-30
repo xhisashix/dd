@@ -21,5 +21,21 @@ class Posts extends Model
      *
      * @var string[]
      */
-    protected $fillable = ['id', 'user_id', 'content', 'status', 'tags'];
+    protected $fillable = ['id', 'user_id', 'content', 'status', 'categories_id'];
+
+    /**
+     * postsテーブルとusersテーブルのリレーション
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\Models\Users', 'user_id', 'id');
+    }
+
+    /**
+     * postsテーブルとcategoriesテーブルのリレーション
+     */
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Category', 'categories_id', 'id');
+    }
 }

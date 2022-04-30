@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Posts;
+use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 
 class PostsController extends Controller
@@ -90,7 +91,7 @@ class PostsController extends Controller
      */
     public function getPostData()
     {
-        $posts = DB::table('posts')->leftJoin('categories', 'posts.tag_id', '=', 'categories.id')->get();
+        $posts = DB::table('posts')->leftJoin('categories', 'posts.categories_id', '=', 'categories.id')->get();
 
         return $posts;
     }
@@ -102,7 +103,7 @@ class PostsController extends Controller
      */
     public function getPostDataByStatus($status)
     {
-        $posts = DB::table('posts')->where('status', $status)->leftJoin('categories', 'posts.tag_id', '=', 'categories.id')->get();
+        $posts = DB::table('posts')->where('status', $status)->leftJoin('categories', 'posts.categories_id', '=', 'categories.id')->get();
         return $posts;
     }
 
@@ -113,9 +114,18 @@ class PostsController extends Controller
      */
     public function getPostDataById($id)
     {
-        $posts = DB::table('posts')->where('id', $id)->get();
+        $posts = new Posts;
 
-        return $posts;
+        // カテゴリの情報も一緒に取得
+        $post = $posts->with('category')->find($id);
+
+        return response()->json([
+            [
+                'response_code' => '200',
+                'message' => '記事の取得に成功しました。',
+                'data' => $post
+            ]
+        ]);
     }
 
     /**
