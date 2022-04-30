@@ -20,7 +20,8 @@ export default {
             this.$axios
                 .get(this.$axios.defaults.baseURL + 'posts/' + this.$route.params.content)
                 .then((response) => {
-                    this.postData = response.data[0]
+                    this.postData = response.data[0].data
+                    console.log(response.data[0])
                 })
         },
     },
