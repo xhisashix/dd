@@ -2,7 +2,7 @@
   .container
     h1 記事一覧
     ul.content-list
-      li(v-for="item in response" :key="item.id")
+      li(v-for="(item, index) in response")
         nuxt-link(:to="'/post/content/' + item.id")
           span.tag(v-if="item.name") {{ item.name }}
           h2 {{item.title }}
@@ -23,7 +23,8 @@ export default {
       this.$axios
         .get(this.$axios.defaults.baseURL + 'posts/published/0')
         .then((response) => {
-          this.response = response.data
+          this.response = response.data.data
+          console.log(response)
         })
     }
   },

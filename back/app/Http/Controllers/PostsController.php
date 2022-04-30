@@ -103,8 +103,18 @@ class PostsController extends Controller
      */
     public function getPostDataByStatus($status)
     {
-        $posts = DB::table('posts')->where('status', $status)->leftJoin('categories', 'posts.categories_id', '=', 'categories.id')->get();
-        return $posts;
+        $posts = new Posts;
+
+        $post = $posts
+            ->join('categories', 'posts.categories_id', '=', 'categories.id')
+            ->select('posts.id', 'posts.title', 'categories.name')
+            ->get();
+
+        return response()->json([
+            'response_code' => '200',
+            'message' => '公開の記事を取得しました。',
+            'data' => $post,
+        ]);
     }
 
     /**
@@ -116,8 +126,8 @@ class PostsController extends Controller
     {
         $posts = new Posts;
 
-        // カテゴリの情報も一緒に取得
-        $post = $posts->with('category')->find($id);
+        //カテゴリの情報も一緒に取得
+        $post = $posts->find($id)->load('category');
 
         return response()->json([
             [
@@ -220,8 +230,9 @@ class PostsController extends Controller
      * ユーザーIDに紐づくデータを取得
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
-    */
-    public function getPostDataByUserId($user_id) {
+     */
+    public function getPostDataByUserId($user_id)
+    {
         $posts = DB::table('posts')->where('user_id', $user_id)->get();
         return $posts;
     }
