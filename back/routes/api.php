@@ -54,7 +54,7 @@ Route::group(
     function ($router) {
         Route::get('/', [CategoryController::class, 'getCategoryData'])->name('categories');
         Route::get('/{id}', [CategoryController::class, 'getCategoryDataById'])->name('category_id');
-        Route::get('/user_id/{user_id}', [CategoryController::class, 'getCategoryDataByUserId'])->name('categories_user_id');
+        Route::get('/user_id/{user_id}', [CategoryController::class, 'getUserCategory'])->name('categories_user_id');
         Route::post('/create', [CategoryController::class, 'addCategoryData'])->name('categories_create');
         Route::post('/delete', [CategoryController::class, 'deleteCategoryDataById'])->name('categories_delete');
         Route::post('/edit', [CategoryController::class, 'updateCategoryDataById'])->name('categories_edit');

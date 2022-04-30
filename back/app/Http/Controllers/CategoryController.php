@@ -68,6 +68,21 @@ class CategoryController extends Controller
     }
 
     /**
+     * ユーザーに紐づくカテゴリーを取得
+     */
+    public function getUserCategory($user_id) {
+        $category = new Category;
+
+        $get_user_category = $category->where('user_id', $user_id)->get();
+
+        return response()->json([
+            'response_code' => '200',
+            'message' => 'カテゴリーの取得に成功しました。',
+            'data' => $get_user_category,
+        ]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
