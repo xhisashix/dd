@@ -19,12 +19,11 @@
                 )
         el-form-item(label='')
         el-form-item(label="カテゴリ")
-            el-select(placeholder="カテゴリを選択" v-model="value")
+            el-select(placeholder="カテゴリを選択" v-model="postItem.categories_id" name='categories_id')
                 el-option(
-                    v-for="category in postItem.category"
+                    v-for="category in categories"
                     :label="category.name"
                     :value="category.id"
-                    name="categories_id"
                 )
         el-form-item(label='公開ステータス')
         el-radio-group(v-model="postItem.status")
@@ -49,11 +48,12 @@ export default {
             mdText: "",
             errors: '',
             value: '',
+            categories: '',
             postItem: {
                 user_id: "",
                 title: "",
                 content: "投稿テスト",
-                category: '',
+                categories_id: '',
                 status: 0,
             },
             markdownOption: {
@@ -91,7 +91,7 @@ export default {
         async onSubmit() {
             try {
                 await this.$axios
-                    .post(this.$axios.defaults.baseURL + "posts/create/", this.postItem).then((response) => {
+                    .post(this.$axios.defaults.baseURL + "posts/create", this.postItem).then((response) => {
                         this.response = response.data;
                         this.$router.push('/mypage/posts/compleat')
                     });
@@ -104,7 +104,7 @@ export default {
             this.$axios
                 .get(this.$axios.defaults.baseURL + 'categories/user_id/' + this.user.id)
                 .then((response) => {
-                    this.postItem.category = response.data.data
+                    this.categories = response.data.data
                 })
         }
     },

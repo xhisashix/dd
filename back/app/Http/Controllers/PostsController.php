@@ -169,7 +169,7 @@ class PostsController extends Controller
         $posts->title = $request->title;
         $posts->content = $request->content;
         $posts->status = $request->status;
-        $posts->tags = $request->tags;
+        $posts->categories_id = $request->categories_id;
         $posts->save();
 
         return response()->json([
@@ -213,7 +213,7 @@ class PostsController extends Controller
                 'title' => $request->title,
                 'content' => $request->content,
                 'status' => $request->status,
-                'tags' => $request->tags
+                'categories_id' => $request->categories_id
             ]
         );
 

@@ -24,7 +24,6 @@ export default {
         .get(this.$axios.defaults.baseURL + 'posts/published/0')
         .then((response) => {
           this.response = response.data.data
-          (response)
         })
     }
   },

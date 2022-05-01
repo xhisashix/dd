@@ -21,7 +21,6 @@ export default {
                 .get(this.$axios.defaults.baseURL + 'posts/' + this.$route.params.content)
                 .then((response) => {
                     this.postData = response.data[0].data
-                    (response.data[0])
                 })
         },
     },
