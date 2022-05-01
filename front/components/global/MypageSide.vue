@@ -9,6 +9,8 @@
       nuxt-link(to='/mypage/posts/list') 記事一覧
     li
       nuxt-link(to='/mypage/category/') カテゴリ登録
+    li
+      nuxt-link(to='/mypage/category/list/') カテゴリ一覧
 </template>
 
 <script>
@@ -23,9 +25,9 @@ export default {
   ul
     box-sizing: border-box
     li
-      margin-top: 10px
+      margin-top: 20px
       border-bottom: 1px solid #eee
-      padding-bottom 8px
+      padding-bottom 10px
       a
         font-size rem(18px)
 </style>
