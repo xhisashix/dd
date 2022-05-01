@@ -7,6 +7,8 @@
       nuxt-link(to='/mypage/posts/') 記事作成
     li
       nuxt-link(to='/mypage/posts/list') 記事一覧
+    li
+      nuxt-link(to='/mypage/category/') カテゴリ登録
 </template>
 
 <script>
