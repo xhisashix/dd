@@ -107,12 +107,22 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(category $category)
+    public function edit(Request $request)
     {
-        //
+        $categories = new Category;
+
+        $category = $categories->where('id', $request->id)->first();
+
+        $category->name = $request->category_name;
+
+        $category->save();
+
+        return response()->json([
+            'response_code' => '200',
+            'message' => 'カテゴリの更新をしました。',
+        ]);
     }
 
     /**
