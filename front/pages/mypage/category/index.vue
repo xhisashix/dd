@@ -32,7 +32,7 @@ export default {
             this.$axios
                 .post(this.$axios.defaults.baseURL + "categories/create", this.form)
                 .then((response) => {
-                    console.log(response)
+                    (response)
                     this.$router.push('/mypage/category/compleat')
                 })
                 .catch((error) => {

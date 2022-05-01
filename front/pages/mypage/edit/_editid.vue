@@ -54,7 +54,7 @@ export default {
             this.$axios
                 .post(this.$axios.defaults.baseURL + "auth/edit/", this.response)
                 .then((response) => {
-                    console.log(response)
+                    (response)
                     this.$router.push('/mypage/compleat')
                 })
                 .catch((error) => {

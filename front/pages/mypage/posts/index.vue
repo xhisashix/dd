@@ -19,14 +19,17 @@
                 )
         el-form-item(label='')
         el-form-item(label="カテゴリ")
-            el-select(placeholder="カテゴリを選択" v-model="postItem.tags")
-                el-option(label="カテゴリ1" value="カテゴリ1" name="tag")
-                el-option(label="カテゴリ2" value="カテゴリ2" name="tag")
-                el-option(label="カテゴリ3" value="カテゴリ3" name="tag")
+            el-select(placeholder="カテゴリを選択" v-model="value")
+                el-option(
+                    v-for="category in postItem.category"
+                    :label="category.name"
+                    :value="category.id"
+                    name="categories_id"
+                )
         el-form-item(label='公開ステータス')
         el-radio-group(v-model="postItem.status")
-            el-radio(label="0" v-model="postItem.status") 公開
-            el-radio(label="1" v-model="postItem.status") 非公開
+            el-radio(:label="0") 公開
+            el-radio(:label="1") 非公開
         el-form-item(label="")
         el-button(type="primary" icon="el-icon-upload el-icon-right" @click="onSubmit") 保存
 </template>
@@ -45,11 +48,12 @@ export default {
             response: "",
             mdText: "",
             errors: '',
+            value: '',
             postItem: {
                 user_id: "",
                 title: "",
                 content: "投稿テスト",
-                tags: "カテゴリ",
+                category: '',
                 status: 0,
             },
             markdownOption: {
@@ -76,6 +80,9 @@ export default {
             return this.$auth.user;
         },
     },
+    mounted() {
+        this.getCategory()
+    },
     methods: {
         changeText(value, render) {
             this.mdText = value;
@@ -86,14 +93,20 @@ export default {
                 await this.$axios
                     .post(this.$axios.defaults.baseURL + "posts/create/", this.postItem).then((response) => {
                         this.response = response.data;
-                        console.log(response.data);
                         this.$router.push('/mypage/posts/compleat')
                     });
             } catch (error) {
-                console.log(error);
+                (error);
                 this.error = error;
             }
         },
+        getCategory() {
+            this.$axios
+                .get(this.$axios.defaults.baseURL + 'categories/user_id/' + this.user.id)
+                .then((response) => {
+                    this.postItem.category = response.data.data
+                })
+        }
     },
 };
 </script>

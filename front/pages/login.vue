@@ -34,7 +34,7 @@ export default {
           data: this.form,
         })
       } catch (error) {
-        console.log(error)
+        (error)
         this.error = true
       }
     },

@@ -25,7 +25,7 @@ export default {
   plugins: [
     {src: '~/plugins/element.js'},
     {src: '~/plugins/format-date.js'},
-    {src: '~/plugins/mavon-editor.js', ssr: false}
+    {src: '~/plugins/mavon-editor.js'}
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
