@@ -32,6 +32,7 @@ export default {
 
 <style lang="stylus">
 .container
+  padding-bottom 50px
   h1
     font-size rem(24px)
     line-height: rem(32px)

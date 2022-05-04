@@ -5,7 +5,7 @@
 
 <script>
 export default {
-
+  layout: "mypage",
 }
 </script>
 

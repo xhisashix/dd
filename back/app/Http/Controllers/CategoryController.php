@@ -64,7 +64,10 @@ class CategoryController extends Controller
         $category = new Category;
         $get_category = $category->where('id', $id)->first();
 
-        return $get_category;
+        return response()->json([
+            "response_code" => "200",
+            "data" => $get_category
+        ]);
     }
 
     /**
@@ -115,7 +118,7 @@ class CategoryController extends Controller
 
         $category = $categories->where('id', $request->id)->first();
 
-        $category->name = $request->category_name;
+        $category->name = $request->name;
 
         $category->save();
 
