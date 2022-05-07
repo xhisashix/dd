@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Posts;
 use App\Models\Category;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
@@ -235,5 +236,29 @@ class PostsController extends Controller
     {
         $posts = DB::table('posts')->where('user_id', $user_id)->get();
         return $posts;
+    }
+
+    /**
+     * 投稿のサムネイル画像をアップロード
+     */
+    public function uploadThumbnail(Request $request)
+    {
+        $file = $request->file('file');
+        $filename = $file->getClientOriginalName();
+        $path = $request->file('file')->storeAs('/images/thumbnail', $filename);
+
+        // アップロードに成功した場合DBへ保存
+        $posts = new Posts;
+        $post = $posts->find($request->id);
+        $post->thumbnail = $path;
+        $post->save();
+
+        return response()->json([
+            'response_code' => '200',
+            'message' => 'サムネイル画像をアップロードしました。',
+            'data' => [
+                $path,
+            ]
+        ]);
     }
 }

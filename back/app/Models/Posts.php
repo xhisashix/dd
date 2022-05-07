@@ -21,7 +21,7 @@ class Posts extends Model
      *
      * @var string[]
      */
-    protected $fillable = ['id', 'user_id', 'content', 'status', 'categories_id'];
+    protected $fillable = ['id', 'user_id', 'content', 'thumbnail', 'status', 'categories_id'];
 
     /**
      * postsテーブルとusersテーブルのリレーション

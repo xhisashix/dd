@@ -44,6 +44,7 @@ Route::group(
         Route::post('/create', [PostsController::class, 'addPostData'])->name('posts_create');
         Route::post('/delete', [PostsController::class, 'deletePostDataById'])->name('posts_delete');
         Route::post('/edit', [PostsController::class, 'updatePostDataById'])->name('posts_edit');
+        Route::post('/uploadThumbnail', [PostsController::class, 'uploadThumbnail'])->name('uploadThumbnail');
     }
 );
 Route::group(
